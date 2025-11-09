@@ -643,7 +643,7 @@ function renderTasks() {
         // innerHTML - właściwość która ustawia HTML wewnątrz elementu
         // Template string (backtick) pozwala na wieloliniowy string i wstawianie zmiennych
         container.innerHTML = `
-            <p class="center-align grey-text" id="noTasksMessage">
+            <p class="center-align" id="noTasksMessage">
                 ${searchQuery || currentFilter !== 'all' 
                     ? 'Brak zadań spełniających kryteria wyszukiwania.' 
                     : 'Brak zadań. Dodaj nowe zadanie używając formularza powyżej.'}
@@ -721,7 +721,7 @@ function createTaskCard(task) {
     // Zwróć string HTML reprezentujący kartę zadania
     // Template string (backtick) pozwala na wieloliniowy string i wstawianie zmiennych
     return `
-        <div class="task-card card ${task.completed ? 'grey lighten-4' : ''}" data-task-id="${task.id}">
+        <div class="task-card card ${task.completed ? 'completed' : ''}" data-task-id="${task.id}">
             <div class="card-content">
                 <div class="row" style="margin-bottom: 0;">
                     <!-- Checkbox do oznaczenia zadania jako ukończone -->
@@ -737,12 +737,12 @@ function createTaskCard(task) {
                     <!-- Główna zawartość karty zadania -->
                     <div class="col s12 m11">
                         <!-- Tytuł zadania -->
-                        <h5 class="${task.completed ? 'strikethrough grey-text' : ''}" style="margin-top: 0;">
+                        <h5 class="${task.completed ? 'strikethrough' : ''}" style="margin-top: 0; ${task.completed ? 'color: var(--text-secondary) !important;' : ''}">
                             ${escapeHtml(task.title)}
                             ${isOverdue && !task.completed ? '<span class="badge red white-text">Przeterminowane</span>' : ''}
                         </h5>
                         <!-- Opis zadania (jeśli istnieje) -->
-                        ${task.description ? `<p class="${task.completed ? 'strikethrough grey-text' : ''}">${escapeHtml(task.description)}</p>` : ''}
+                        ${task.description ? `<p class="${task.completed ? 'strikethrough' : ''}" style="${task.completed ? 'color: var(--text-secondary) !important;' : ''}">${escapeHtml(task.description)}</p>` : ''}
                         
                         <!-- Metadane zadania (wykonawca, priorytet, deadline, kategoria) -->
                         <div class="task-meta" style="margin-top: 15px;">
@@ -791,7 +791,7 @@ function createTaskCard(task) {
                         </div>
                         
                         <!-- Daty utworzenia i modyfikacji -->
-                        <div class="task-dates grey-text text-darken-1" style="margin-top: 10px; font-size: 0.85rem;">
+                        <div class="task-dates" style="margin-top: 10px; font-size: 0.85rem;">
                             <i class="material-icons tiny">access_time</i>
                             Utworzone: ${createdDate}
                             ${task.updatedAt && task.updatedAt.getTime() !== task.createdAt.getTime() ? 
