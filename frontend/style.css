@@ -1,0 +1,699 @@
+/* ============================================
+   APLIKACJA TODO - DODATKOWE STYLE
+   ============================================ */
+
+/* Customowy kolor aplikacji */
+:root {
+    --primary-color: #BF08BD;
+    --primary-color-dark: #9a0698;
+    --primary-color-light: #d43dd2;
+    
+    /* Dark Theme Colors */
+    --bg-primary: #121212;
+    --bg-secondary: #1e1e1e;
+    --bg-card: #2d2d2d;
+    --bg-card-hover: #3a3a3a;
+    --bg-input: #2d2d2d;
+    --text-primary: #e0e0e0;
+    --text-secondary: #b0b0b0;
+    --border-color: #404040;
+    --shadow-dark: rgba(0, 0, 0, 0.5);
+    --shadow-darker: rgba(0, 0, 0, 0.7);
+}
+
+/* Globalne style - Dark Theme */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Customowe klasy kolorów */
+.custom-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.custom-primary-dark {
+    background-color: var(--primary-color-dark) !important;
+}
+
+.custom-primary-text {
+    color: var(--primary-color) !important;
+}
+
+/* Style dla przycisków z customowym kolorem */
+.btn.custom-primary,
+.btn-small.custom-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.btn.custom-primary:hover,
+.btn-small.custom-primary:hover {
+    background-color: var(--primary-color-dark) !important;
+}
+
+/* Style dla badge z customowym kolorem */
+.badge.custom-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.badge.custom-primary-dark {
+    background-color: var(--primary-color-dark) !important;
+}
+
+/* Główny kontener */
+main {
+    flex: 1;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+
+nav {
+    background-color: var(--primary-color) !important;
+}
+
+nav .brand-logo {
+    font-weight: 500;
+    padding-left: 10px;
+}
+
+nav .badge {
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: var(--primary-color-dark) !important;
+}
+
+/* ============================================
+   CARDS - Dark Theme
+   ============================================ */
+
+.card {
+    background-color: var(--bg-card) !important;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--shadow-dark), 0 4px 16px var(--shadow-darker);
+    border: 1px solid var(--border-color);
+    transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+    color: var(--text-primary);
+}
+
+.card:hover {
+    background-color: var(--bg-card-hover) !important;
+    box-shadow: 0 4px 12px var(--shadow-dark), 0 8px 24px var(--shadow-darker);
+    transform: translateY(-2px);
+}
+
+.card-title {
+    font-weight: 500;
+    color: var(--primary-color-light);
+    margin-bottom: 20px;
+}
+
+.card-content {
+    color: var(--text-primary);
+}
+
+.card-title i {
+    vertical-align: middle;
+}
+
+/* ============================================
+   TASK CARDS
+   ============================================ */
+
+.task-card {
+    margin-bottom: 15px;
+    animation: fadeIn 0.3s ease-in;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-dark), 0 8px 24px var(--shadow-darker);
+}
+
+.task-card.completed {
+    opacity: 0.7;
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-color);
+}
+
+.task-card.completed .card-content {
+    background-color: var(--bg-secondary) !important;
+}
+
+.task-card h5 {
+    font-weight: 500;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+}
+
+.task-card .strikethrough {
+    text-decoration: line-through;
+    opacity: 0.5;
+    color: var(--text-secondary) !important;
+}
+
+.task-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.task-meta .chip {
+    margin: 0;
+    height: 28px;
+    line-height: 28px;
+    font-size: 12px;
+    padding: 0 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.task-meta .chip i {
+    font-size: 16px;
+    line-height: 28px;
+}
+
+.task-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.task-actions .btn-small {
+    height: 32px;
+    line-height: 32px;
+    padding: 0 16px;
+    font-size: 13px;
+}
+
+.task-dates {
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-secondary);
+}
+
+.task-dates i {
+    font-size: 14px;
+}
+
+/* Priorytety */
+.priority-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* ============================================
+   FILTER CHIPS
+   ============================================ */
+
+.chip-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.filter-chip {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 16px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    color: var(--text-secondary);
+    text-decoration: none;
+}
+
+.filter-chip:hover {
+    background-color: var(--bg-card-hover);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px var(--shadow-dark);
+    border-color: var(--primary-color);
+}
+
+.filter-chip.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.filter-chip i {
+    font-size: 16px;
+    vertical-align: middle;
+}
+
+/* ============================================
+   FORM STYLES - Dark Theme
+   ============================================ */
+
+.input-field label {
+    font-weight: 500;
+    color: var(--text-secondary) !important;
+}
+
+.input-field input,
+.input-field textarea {
+    color: var(--text-primary) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    background-color: transparent !important;
+}
+
+.input-field input:focus + label,
+.input-field textarea:focus + label {
+    color: var(--primary-color-light) !important;
+}
+
+.input-field input:focus,
+.input-field textarea:focus {
+    border-bottom: 1px solid var(--primary-color) !important;
+    box-shadow: 0 1px 0 0 var(--primary-color) !important;
+}
+
+.input-field .prefix {
+    color: var(--text-secondary);
+}
+
+.input-field .prefix.active {
+    color: var(--primary-color-light);
+}
+
+.input-field input[type=text]:not(.browser-default):focus:not([readonly]) + label,
+.input-field input[type=text]:not(.browser-default):focus:not([readonly]),
+.input-field textarea.materialize-textarea:focus:not([readonly]) + label,
+.input-field textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom-color: var(--primary-color) !important;
+    box-shadow: 0 1px 0 0 var(--primary-color) !important;
+}
+
+/* Date picker styling - Dark Theme */
+.datepicker-date-display {
+    background-color: var(--primary-color);
+}
+
+.datepicker-calendar-container {
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.datepicker-calendar-container .datepicker-table {
+    background-color: var(--bg-card);
+}
+
+.datepicker-table td {
+    color: var(--text-primary);
+}
+
+.datepicker-table td.is-today {
+    color: var(--primary-color-light);
+}
+
+.datepicker-table td.is-selected {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.datepicker-table td.is-selected.is-today {
+    color: white !important;
+}
+
+.datepicker-cancel,
+.datepicker-clear,
+.datepicker-today,
+.datepicker-done {
+    color: var(--primary-color-light);
+}
+
+.datepicker-modal {
+    background-color: var(--bg-card);
+}
+
+.datepicker-controls .select-month input,
+.datepicker-controls .select-year input {
+    color: var(--text-primary);
+}
+
+/* Select styling - Dark Theme */
+select {
+    display: block;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 8px;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+}
+
+select:focus {
+    border: 1px solid var(--primary-color);
+    outline: none;
+    background-color: var(--bg-card-hover);
+}
+
+select option {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+}
+
+/* Label styling for selects and general labels */
+label:not(.input-field label) {
+    color: var(--text-secondary) !important;
+}
+
+/* Materialize chip styling in dark theme */
+.chip {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.chip.grey.darken-1 {
+    background-color: var(--bg-card-hover) !important;
+    border-color: var(--border-color);
+}
+
+/* Grey text styling in dark theme */
+.grey-text {
+    color: var(--text-secondary) !important;
+}
+
+/* Completed task styling */
+.task-card.completed h5,
+.task-card.completed p {
+    color: var(--text-secondary) !important;
+}
+
+/* ============================================
+   BUTTONS - Dark Theme
+   ============================================ */
+
+.btn, .btn-small {
+    border-radius: 4px;
+    text-transform: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn:hover, .btn-small:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-dark);
+}
+
+.btn:active, .btn-small:active {
+    transform: translateY(0);
+}
+
+/* Grey buttons in dark theme */
+.btn.grey {
+    background-color: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+}
+
+.btn.grey:hover {
+    background-color: var(--bg-card-hover) !important;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-in;
+}
+
+/* ============================================
+   BADGES
+   ============================================ */
+
+.badge {
+    border-radius: 12px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* ============================================
+   EMPTY STATE - Dark Theme
+   ============================================ */
+
+#noTasksMessage {
+    padding: 40px 20px;
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+/* ============================================
+   EXPORT/IMPORT BUTTONS
+   ============================================ */
+
+#exportBtn, #importBtn {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+footer.page-footer {
+    background-color: var(--primary-color) !important;
+    margin-top: 40px;
+    padding: 20px 0;
+}
+
+footer .container {
+    text-align: center;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media only screen and (max-width: 992px) {
+    .task-meta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .task-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .task-actions .btn-small {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    nav .brand-logo {
+        font-size: 1.5rem;
+    }
+    
+    .card-title {
+        font-size: 1.5rem;
+    }
+    
+    .task-card h5 {
+        font-size: 1.2rem;
+    }
+    
+    .chip-container {
+        flex-direction: column;
+    }
+    
+    .filter-chip {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .task-meta .chip {
+        font-size: 11px;
+        padding: 0 10px;
+    }
+    
+    #exportBtn, #importBtn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.text-center {
+    text-align: center;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ============================================
+   SCROLLBAR STYLING - Dark Theme
+   ============================================ */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+/* ============================================
+   LOADING STATE
+   ============================================ */
+
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* ============================================
+   TOAST CUSTOMIZATION
+   ============================================ */
+
+#toast-container {
+    top: auto !important;
+    right: auto !important;
+    bottom: 10%;
+    left: 7%;
+}
+
+/* Customowy kolor toast dla typu info */
+.custom-toast-info {
+    background-color: var(--primary-color) !important;
+}
+
+/* ============================================
+   ACCESSIBILITY - Dark Theme
+   ============================================ */
+
+.task-card:focus-within {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+button:focus,
+a:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Checkbox styling in dark theme */
+[type="checkbox"].filled-in:checked + span:not(.lever):after {
+    border: 2px solid var(--primary-color);
+    background-color: var(--primary-color);
+}
+
+[type="checkbox"].filled-in + span:not(.lever):after {
+    border: 2px solid var(--border-color);
+}
+
+[type="checkbox"].filled-in:checked + span:not(.lever):before {
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+}
+
+/* Materialize input placeholder */
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-secondary) !important;
+    opacity: 0.7;
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+    nav,
+    footer,
+    #taskForm,
+    .task-actions,
+    #exportBtn,
+    #importBtn {
+        display: none;
+    }
+    
+    .task-card {
+        page-break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}

@@ -1,42 +1,35 @@
 const express = require('express');
 const fs = require('fs').promises;
 const path = require('path');
+const cors = require('cors'); // Import CORS
 
 const app = express();
 const PORT = 3000;
 const TASKS_FILE = path.join(__dirname, 'tasks.json');
 
-// Middleware to parse JSON bodies
-app.use(express.json());
+// ============================================
+// MIDDLEWARE
+// ============================================
+app.use(cors()); // Enable CORS for all routes
+app.use(express.json()); // Middleware to parse JSON bodies
 
 // ============================================
 // HELPER FUNCTIONS
 // ============================================
 
-/**
- * Reads tasks from the tasks.json file.
- * If the file doesn't exist, it returns an empty array.
- * @returns {Promise<Array>} A promise that resolves to an array of tasks.
- */
 async function readTasks() {
     try {
         const data = await fs.readFile(TASKS_FILE, 'utf8');
         return JSON.parse(data);
     } catch (error) {
-        // If the file doesn't exist or is empty, return an empty array
         if (error.code === 'ENOENT') {
+            await writeTasks([]); // Create the file if it doesn't exist
             return [];
         }
-        // For other errors, re-throw the exception
         throw error;
     }
 }
 
-/**
- * Writes an array of tasks to the tasks.json file.
- * @param {Array} tasks - The array of tasks to write.
- * @returns {Promise<void>}
- */
 async function writeTasks(tasks) {
     await fs.writeFile(TASKS_FILE, JSON.stringify(tasks, null, 2), 'utf8');
 }
@@ -65,7 +58,7 @@ app.get('/tasks', async (req, res) => {
 
 // 3. POST /tasks
 app.post('/tasks', async (req, res) => {
-    const { title, description } = req.body;
+    const { title, description, assignee, priority, deadline, category } = req.body;
 
     if (!title) {
         return res.status(400).json({ error: 'Title is required.' });
@@ -73,16 +66,19 @@ app.post('/tasks', async (req, res) => {
 
     try {
         const tasks = await readTasks();
-
-        // Generate a new ID (find the max ID and add 1)
         const newId = tasks.length > 0 ? Math.max(...tasks.map(t => t.id)) + 1 : 1;
 
         const newTask = {
             id: newId,
-            title,
-            description: description || '',
+            title: title.trim(),
+            description: description ? description.trim() : '',
+            assignee: assignee ? assignee.trim() : '',
+            priority: priority || 'medium',
+            deadline: deadline || null,
+            category: category ? category.trim() : '',
             completed: false,
             createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
         };
 
         tasks.push(newTask);
@@ -97,26 +93,29 @@ app.post('/tasks', async (req, res) => {
 // 4. PUT /tasks/:id
 app.put('/tasks/:id', async (req, res) => {
     const taskId = parseInt(req.params.id, 10);
-    const { title, description, completed } = req.body;
+    const { title, description, assignee, priority, deadline, category, completed } = req.body;
 
     if (isNaN(taskId)) {
         return res.status(400).json({ error: 'Invalid task ID.' });
     }
 
     try {
-        const tasks = await readTasks();
+        let tasks = await readTasks();
         const taskIndex = tasks.findIndex(t => t.id === taskId);
 
         if (taskIndex === -1) {
             return res.status(404).json({ error: 'Task not found', id: taskId });
         }
 
-        // Update the task with new data, keeping original values if not provided
         const originalTask = tasks[taskIndex];
         const updatedTask = {
             ...originalTask,
-            title: title !== undefined ? title : originalTask.title,
-            description: description !== undefined ? description : originalTask.description,
+            title: title !== undefined ? title.trim() : originalTask.title,
+            description: description !== undefined ? description.trim() : originalTask.description,
+            assignee: assignee !== undefined ? assignee.trim() : originalTask.assignee,
+            priority: priority !== undefined ? priority : originalTask.priority,
+            deadline: deadline !== undefined ? deadline : originalTask.deadline,
+            category: category !== undefined ? category.trim() : originalTask.category,
             completed: completed !== undefined ? completed : originalTask.completed,
             updatedAt: new Date().toISOString(),
         };
@@ -130,15 +129,35 @@ app.put('/tasks/:id', async (req, res) => {
     }
 });
 
+// 5. DELETE /tasks/:id
+app.delete('/tasks/:id', async (req, res) => {
+    const taskId = parseInt(req.params.id, 10);
+
+    if (isNaN(taskId)) {
+        return res.status(400).json({ error: 'Invalid task ID.' });
+    }
+
+    try {
+        let tasks = await readTasks();
+        const initialLength = tasks.length;
+        tasks = tasks.filter(t => t.id !== taskId);
+
+        if (tasks.length === initialLength) {
+            return res.status(404).json({ error: 'Task not found', id: taskId });
+        }
+
+        await writeTasks(tasks);
+        res.status(204).send(); // No Content
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to delete the task.' });
+    }
+});
+
+
 // ============================================
 // SERVER START
 // ============================================
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
-    console.log('Available endpoints:');
-    console.log(`- GET http://localhost:${PORT}/health`);
-    console.log(`- GET http://localhost:${PORT}/tasks`);
-    console.log(`- POST http://localhost:${PORT}/tasks`);
-    console.log(`- PUT http://localhost:${PORT}/tasks/:id`);
 });
