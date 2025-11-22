@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "id": 1,
+    "title": "Zaktualizowany",
+    "description": "JASKAJKASDJKAnsdsa",
+    "assignee": "Ja",
+    "priority": "medium",
+    "deadline": "2025-11-25",
+    "category": "",
+    "completed": true,
+    "createdAt": "2025-11-22T18:59:58.276Z",
+    "updatedAt": "2025-11-22T19:12:00.174Z"
+  },
+  {
+    "id": 2,
+    "title": "matma",
+    "description": "nsajsndas",
+    "assignee": "ja",
+    "priority": "medium",
+    "deadline": null,
+    "category": "",
+    "completed": false,
+    "createdAt": "2025-11-22T19:00:41.796Z",
+    "updatedAt": "2025-11-22T19:00:41.796Z"
+  },
+  {
+    "id": 3,
+    "title": "Nowe zadanie",
+    "description": "Opis",
+    "assignee": "",
+    "priority": "medium",
+    "deadline": null,
+    "category": "",
+    "completed": false,
+    "createdAt": "2025-11-22T19:09:01.786Z",
+    "updatedAt": "2025-11-22T19:09:01.786Z"
+  }
+]

@@ -1,7 +1,7 @@
 # TODO API - Menadżer Zadań
 
-**Autor:** [Twoje Imię]
-**Grupa:** [Numer grupy]
+**Autor:** Krzysztof Janik
+**Grupa:** [NIE ZNAM GRUPY]
 **Data:** 2024-07-25
 
 ## Opis projektu
