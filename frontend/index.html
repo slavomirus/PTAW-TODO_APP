@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikacja ToDo - Material Design</title>
+
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-wrapper container">
+            <a href="#" class="brand-logo">
+                <i class="material-icons left">check_circle</i>
+                ToDo App
+            </a>
+            <ul class="right">
+                <li>
+                    <span class="badge white-text custom-primary-dark" id="tasksCounter">
+                        <span id="activeTasksCount">0</span> aktywnych
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container" style="margin-top: 30px; margin-bottom: 30px;">
+
+        <!-- Search and Filters Section -->
+        <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">
+                            <i class="material-icons left">filter_list</i>
+                            Filtry i wyszukiwarka
+                        </span>
+
+                        <!-- Search Bar -->
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="input-field col s12 m6">
+                                <i class="material-icons prefix">search</i>
+                                <input type="text" id="searchInput" placeholder="Wyszukaj zadania...">
+                                <label for="searchInput">Wyszukaj zadania</label>
+                            </div>
+                            <div class="col s12 m6" style="margin-top: 20px;">
+                                <button class="btn waves-effect waves-light custom-primary" id="clearSearch">
+                                    <i class="material-icons left">clear</i>
+                                    Wyczyść wyszukiwanie
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Filter Buttons -->
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col s12">
+                                <div class="chip-container">
+                                    <a class="chip filter-chip active" data-filter="all">
+                                        <i class="material-icons tiny left">list</i>
+                                        Wszystkie
+                                    </a>
+                                    <a class="chip filter-chip" data-filter="active">
+                                        <i class="material-icons tiny left">radio_button_unchecked</i>
+                                        Aktywne
+                                    </a>
+                                    <a class="chip filter-chip" data-filter="completed">
+                                        <i class="material-icons tiny left">check_circle</i>
+                                        Zakończone
+                                    </a>
+                                    <a class="chip filter-chip" data-filter="overdue">
+                                        <i class="material-icons tiny left">warning</i>
+                                        Przeterminowane
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sort Options -->
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col s12">
+                                <label style="font-size: 0.8rem; display: block; margin-bottom: 8px;">
+                                    <i class="material-icons tiny" style="vertical-align: middle;">sort</i>
+                                    Sortuj według:
+                                </label>
+                                <select id="sortSelect" class="browser-default">
+                                    <option value="date-desc" selected>Data utworzenia (malejąco)</option>
+                                    <option value="date-asc">Data utworzenia (rosnąco)</option>
+                                    <option value="priority-desc">Priorytet (wysoki najpierw)</option>
+                                    <option value="priority-asc">Priorytet (niski najpierw)</option>
+                                    <option value="deadline-asc">Deadline (najbliższe)</option>
+                                    <option value="deadline-desc">Deadline (najdalsze)</option>
+                                    <option value="assignee">Wykonawca (A-Z)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Task Form -->
+        <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">
+                            <i class="material-icons left">add_circle</i>
+                            <span id="formTitle">Dodaj nowe zadanie</span>
+                        </span>
+                        <form id="taskForm">
+                            <div class="row">
+                                <div class="input-field col s12 m6">
+                                    <i class="material-icons prefix">title</i>
+                                    <input id="taskTitle" type="text" class="validate" required>
+                                    <label for="taskTitle">Tytuł zadania *</label>
+                                </div>
+                                <div class="input-field col s12 m6">
+                                    <i class="material-icons prefix">person</i>
+                                    <input id="taskAssignee" type="text" class="validate">
+                                    <label for="taskAssignee">Wykonawca</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">description</i>
+                                    <textarea id="taskDescription" class="materialize-textarea"></textarea>
+                                    <label for="taskDescription">Opis zadania</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col s12 m4">
+                                    <label style="font-size: 0.8rem;">
+                                        <i class="material-icons tiny" style="vertical-align: middle;">flag</i>
+                                        Priorytet
+                                    </label>
+                                    <select id="taskPriority" class="browser-default">
+                                        <option value="low">Niski</option>
+                                        <option value="medium" selected>Średni</option>
+                                        <option value="high">Wysoki</option>
+                                    </select>
+                                </div>
+                                <div class="input-field col s12 m4">
+                                    <i class="material-icons prefix">event</i>
+                                    <input type="text" id="taskDeadline" class="datepicker">
+                                    <label for="taskDeadline">Deadline</label>
+                                </div>
+                                <div class="input-field col s12 m4">
+                                    <i class="material-icons prefix">label</i>
+                                    <input id="taskCategory" type="text" class="validate">
+                                    <label for="taskCategory">Kategoria/Tagi</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col s12">
+                                    <button class="btn waves-effect waves-light custom-primary" type="submit">
+                                        <i class="material-icons left">save</i>
+                                        <span id="submitButtonText">Dodaj zadanie</span>
+                                    </button>
+                                    <button class="btn waves-effect waves-light grey" type="button" id="cancelEdit" style="display: none;">
+                                        <i class="material-icons left">cancel</i>
+                                        Anuluj edycję
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tasks List -->
+        <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">
+                            <i class="material-icons left">assignment</i>
+                            Lista zadań
+                            <span class="badge custom-primary white-text" id="tasksListCounter">0</span>
+                        </span>
+
+                        <!-- Export/Import Buttons -->
+                        <div style="margin-bottom: 20px;">
+                            <button class="btn waves-effect waves-light green darken-2" id="exportBtn">
+                                <i class="material-icons left">file_download</i>
+                                Eksportuj do JSON
+                            </button>
+                            <button class="btn waves-effect waves-light orange darken-2" id="importBtn">
+                                <i class="material-icons left">file_upload</i>
+                                Importuj z JSON
+                            </button>
+                            <input type="file" id="importFile" accept=".json" style="display: none;">
+                        </div>
+
+                        <!-- Tasks Container -->
+                        <div id="tasksContainer">
+                            <p class="center-align" id="noTasksMessage">
+                                Brak zadań. Dodaj nowe zadanie używając formularza powyżej.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <p class="white-text center-align">
+                        Aplikacja ToDo - Material Design |
+                        <span id="footerTasksCount">0</span> zadań w bazie
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
